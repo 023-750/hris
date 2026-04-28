@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Evaluation Form - Raquel Pawnshop</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    background: #e0e0e0;
+    padding: 20px;
+    color: #000;
+  }
+  .page {
+    background: #fff;
+    width: 816px;
+    margin: 0 auto 30px;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  /* Header */
+  .header-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1.5px solid #000;
+    margin-bottom: 8px;
+  }
+  .header-table td { border: 1px solid #000; padding: 3px 6px; vertical-align: middle; }
+  .logo-cell { width: 160px; padding: 6px 10px !important; }
+  .logo-box {
+    display: flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg, #5a3e1b 0%, #8b6914 50%, #5a3e1b 100%);
+    padding: 6px 10px; border-radius: 4px;
+  }
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: #c8a84b;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #fff; font-weight: bold;
+  }
+  .logo-text { color: #fff; }
+  .logo-name { font-size: 16px; font-weight: 900; letter-spacing: 1px; font-style: italic; }
+  .logo-sub { font-size: 7px; letter-spacing: 0.5px; opacity: 0.85; }
+  .form-title-cell { text-align: center; }
+  .form-title { font-size: 16px; font-weight: bold; }
+  .meta-label { font-size: 9px; font-weight: bold; }
+  .meta-value { font-size: 10px; }
+  .code-cell { font-size: 9px; font-weight: bold; }
+
+  /* Employee Info */
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1.5px solid #000;
+    margin-bottom: 8px;
+  }
+  .info-table td { border: 1px solid #000; padding: 4px 6px; }
+  .field-label { font-size: 9px; color: #333; }
+  .field-value { font-weight: bold; font-size: 11px; }
+  .check-group { display: flex; flex-direction: column; gap: 2px; font-size: 10px; }
+  .check-row { display: flex; gap: 14px; }
+  .check-item { display: flex; align-items: center; gap: 3px; }
+  .checkbox { width: 10px; height: 10px; border: 1px solid #000; display: inline-block; text-align: center; line-height: 10px; font-size: 9px; }
+  .checked { background: #000; color: #fff; }
+
+  /* Section headers */
+  .section-header {
+    background: #d4e8c2;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 4px 6px;
+    border: 1.5px solid #000;
+    border-bottom: none;
+  }
+
+  /* Rating scale table */
+  .scale-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1.5px solid #000;
+    margin-bottom: 8px;
+  }
+  .scale-table th {
+    background: #d4e8c2;
+    border: 1px solid #000;
+    padding: 4px 6px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: bold;
+  }
+  .scale-table td {
+    border: 1px solid #000;
+    padding: 3px 6px;
+    font-size: 10px;
+    vertical-align: middle;
+  }
+  .scale-num { width: 90px; }
+  .scale-desc { width: 130px; }
+
+  /* Summary table */
+  .summary-outer {
+    border: 1.5px solid #000;
+    margin-bottom: 8px;
+  }
+  .summary-header {
+    background: #d4e8c2;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 4px 6px;
+    border-bottom: 1px solid #000;
+  }
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .summary-table th {
+    background: #f0f0f0;
+    border: 1px solid #000;
+    padding: 4px 6px;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .summary-table td {
+    border: 1px solid #000;
+    padding: 4px 6px;
+    font-size: 10px;
+    vertical-align: middle;
+  }
+  .sig-cell { text-align: center; font-style: italic; font-size: 9px; color: #555; }
+  .total-row td { font-weight: bold; }
+
+  /* Performance result */
+  .perf-outer {
+    border: 1.5px solid #000;
+    margin-bottom: 8px;
+  }
+  .perf-header {
+    background: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #000;
+  }
+  .kra-section-header {
+    background: #d4e8c2;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-bottom: 1px solid #000;
+  }
+  .kra-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .kra-table th {
+    background: #f5f5f5;
+    border: 1px solid #000;
+    padding: 3px 6px;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .kra-table td {
+    border: 1px solid #000;
+    padding: 3px 6px;
+    font-size: 10px;
+    height: 20px;
+  }
+  .kra-label { width: 60px; font-weight: bold; }
+  .kra-desc { }
+  .kra-weight { width: 70px; text-align: center; }
+  .kra-rating { width: 60px; text-align: center; }
+  .kra-total { width: 60px; text-align: center; }
+  .subtotal-row td { font-weight: bold; background: #f0f0f0; text-align: right; }
+  .subtotal-val { text-align: center !important; }
+
+  /* Page 2 */
+  .behavior-outer {
+    border: 1.5px solid #000;
+    margin-bottom: 10px;
+  }
+  .behavior-header {
+    background: #d4e8c2;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 4px 6px;
+    border-bottom: 1px solid #000;
+  }
+  .behavior-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .behavior-table th {
+    background: #f5f5f5;
+    border: 1px solid #000;
+    padding: 4px 6px;
+    font-size: 10px;
+    font-weight: bold;
+  }
+  .behavior-table td {
+    border: 1px solid #000;
+    padding: 4px 6px;
+    font-size: 10px;
+    height: 22px;
+  }
+  .kra-col { width: 150px; font-weight: bold; }
+  .kpi-col { }
+  .rating-col { width: 70px; text-align: center; }
+  .avg-row td { font-weight: bold; background: #f0f0f0; }
+  .avg-val { color: #c00; font-weight: bold; }
+
+  /* Dev Plan */
+  .dev-outer {
+    border: 1.5px solid #000;
+    margin-bottom: 10px;
+  }
+  .dev-header {
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #000;
+    background: #fff;
+  }
+  .dev-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .dev-table th {
+    background: #f5f5f5;
+    border: 1px solid #000;
+    padding: 4px 6px;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .dev-table td {
+    border: 1px solid #000;
+    padding: 4px 6px;
+    font-size: 10px;
+    height: 22px;
+  }
+
+  /* Career growth */
+  .career-outer {
+    border: 1.5px solid #000;
+    margin-bottom: 10px;
+  }
+  .career-header {
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #000;
+    background: #fff;
+  }
+  .career-body {
+    padding: 6px 8px;
+    font-size: 10px;
+    line-height: 1.8;
+  }
+
+  /* Comments */
+  .comment-box {
+    border: 1.5px solid #000;
+    margin-bottom: 8px;
+  }
+  .comment-label {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 10px;
+    padding: 4px 6px;
+    border-bottom: 1px solid #000;
+    background: #fafafa;
+  }
+  .comment-body {
+    height: 70px;
+    padding: 6px;
+    position: relative;
+  }
+  .sig-line {
+    border-top: 1px solid #000;
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 9px;
+    font-style: italic;
+    color: #555;
+    padding-top: 2px;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Executives */
+  .exec-box {
+    border: 1.5px solid #000;
+    margin-bottom: 8px;
+    padding: 6px 8px;
+  }
+  .exec-label {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 10px;
+    margin-bottom: 30px;
+  }
+  .exec-sigs {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+  }
+  .exec-sig { text-align: center; font-size: 9px; font-style: italic; color: #555; }
+  .exec-sig-line { border-top: 1px solid #000; width: 140px; margin-bottom: 3px; }
+
+  /* HR use */
+  .hr-box {
+    border: 1.5px solid #000;
+    padding: 6px 8px;
+    font-size: 10px;
+    font-style: italic;
+    text-align: center;
+  }
+  .hr-box .hr-title { font-weight: bold; margin-bottom: 6px; }
+  .hr-fields { display: flex; justify-content: center; gap: 60px; margin-top: 4px; }
+  .hr-field { border-bottom: 1px solid #000; min-width: 160px; text-align: left; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+
+  <!-- Header -->
+  <table class="header-table">
+    <tr>
+      <td class="logo-cell" rowspan="2">
+        <div class="logo-box">
+          <div class="logo-icon">🐾</div>
+          <div class="logo-text">
+            <div class="logo-name">RAQUEL</div>
+            <div class="logo-sub">PAWNSHOP</div>
+          </div>
+        </div>
+      </td>
+      <td colspan="4" class="form-title-cell"><span class="form-title">PERFORMANCE EVALUATION FORM</span></td>
+    </tr>
+    <tr>
+      <td style="width:90px"><span class="meta-label">Revision Date</span></td>
+      <td><span class="meta-value">3 January 2022</span></td>
+      <td style="width:50px"><span class="meta-label">Code</span></td>
+      <td><span class="meta-value">HRD Form-013.01</span></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><span class="meta-label">Effective Date</span></td>
+      <td><span class="meta-value">14 January 2022</span></td>
+      <td><span class="meta-label">Control No.</span></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <!-- Employee Info -->
+  <table class="info-table">
+    <tr>
+      <td style="width:50%">
+        <span class="field-label">Name of Employee: </span>
+        <span class="field-value">Chan, Jose Mari C.</span>
+      </td>
+      <td style="width:25%">
+        <span class="field-label">Position: </span>
+        <span class="field-value">HR Staff</span>
+      </td>
+      <td>
+        <span class="field-label">Date: </span>
+        <span class="field-value" style="color:#888">mm/dd/yyyy</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="field-label">Evaluation Period:</span><br>
+        <span class="field-label">From: </span><span class="field-value">01/01/2022</span>
+        &nbsp;&nbsp;<span class="field-label">To: </span><span class="field-value">12/31/2022</span><br>
+        <span style="font-size:8px;color:#666;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mm/dd/yyyy)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(mm/dd/yyyy)</span>
+      </td>
+      <td>
+        <div class="field-label" style="margin-bottom:4px">Please check one (1):</div>
+        <div class="check-group">
+          <div class="check-row">
+            <div class="check-item"><span class="checkbox"></span> Initial</div>
+            <div class="check-item"><span class="checkbox"></span> Final</div>
+          </div>
+          <div class="check-row">
+            <div class="check-item"><span class="checkbox"></span> Quarterly</div>
+            <div class="check-item"><span class="checkbox checked">✓</span> Annual</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <span class="field-label">Department/Branch:</span><br>
+        <span class="field-value">HRD</span>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Rating Scale -->
+  <table class="scale-table">
+    <thead>
+      <tr>
+        <th colspan="3" style="background:#d4e8c2; text-align:left;">Performance Rating Scale</th>
+      </tr>
+      <tr>
+        <th class="scale-num">RATING SCALE</th>
+        <th class="scale-desc">DESCRIPTION</th>
+        <th>DEFINITION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>3.60 – 4.00</td>
+        <td>Outstanding</td>
+        <td>Performance significantly exceeds standards and expectations</td>
+      </tr>
+      <tr>
+        <td>2.60 – 3.59</td>
+        <td>Exceeds Expectations</td>
+        <td>Performance exceeds standards and expectations</td>
+      </tr>
+      <tr>
+        <td>2.00 – 2.59</td>
+        <td>Meets Expectations</td>
+        <td>Performance meets standards and expectations</td>
+      </tr>
+      <tr>
+        <td>1.00 – 1.99</td>
+        <td>Needs Improvement</td>
+        <td>Performance did not meet standards and expectations</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Performance Evaluation Summary -->
+  <div class="summary-outer">
+    <div class="summary-header">Performance Evaluation Summary</div>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th style="text-align:left; width:60%"></th>
+          <th style="width:80px">Weight</th>
+          <th style="width:80px">Rating</th>
+          <th style="width:120px">Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>I. Key Result Areas based on Strategic Programs and Regular Job Requirements</td>
+          <td style="text-align:center">80%</td>
+          <td></td>
+          <td rowspan="2" class="sig-cell" style="vertical-align:middle">
+            <div style="border-top:1px solid #000;width:90px;margin:0 auto 2px;"></div>
+            <em>Employee</em>
+          </td>
+        </tr>
+        <tr>
+          <td>II. Key Result Areas based on Bahavior and Values</td>
+          <td style="text-align:center">20%</td>
+          <td></td>
+        </tr>
+        <tr class="total-row">
+          <td style="text-align:right; padding-right:10px; font-weight:bold;">TOTAL</td>
+          <td style="text-align:center; font-weight:bold;">100%</td>
+          <td></td>
+          <td class="sig-cell">
+            <div style="border-top:1px solid #000;width:90px;margin:0 auto 2px;"></div>
+            <em>Rater</em>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Performance Result -->
+  <div class="perf-outer">
+    <div class="perf-header">Performance Result</div>
+    <div class="kra-section-header">I. Key Result Areas based on Strategic Programs and Job Requirements (80%)</div>
+    <table class="kra-table">
+      <thead>
+        <tr>
+          <th class="kra-label" colspan="2" style="text-align:left"></th>
+          <th class="kra-weight">Weight</th>
+          <th class="kra-rating">Rating</th>
+          <th class="kra-total">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- KRA rows -->
+        <tr><td class="kra-label">KRA 1</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 2</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 3</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 4</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 5</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 6</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 7</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 8</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 9</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 10</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 11</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 12</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 13</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 14</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 15</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 16</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 17</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 18</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 19</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <tr><td class="kra-label">KRA 20</td><td class="kra-desc"></td><td class="kra-weight"></td><td class="kra-rating"></td><td class="kra-total"></td></tr>
+        <!-- Subtotal -->
+        <tr class="subtotal-row">
+          <td colspan="2" style="text-align:right;font-weight:bold;padding-right:8px;">SUB TOTAL</td>
+          <td class="subtotal-val">0%</td>
+          <td></td>
+          <td class="subtotal-val">-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- end page 1 -->
+
+<!-- PAGE 2 -->
+<div class="page">
+
+  <!-- Header (repeated) -->
+  <table class="header-table" style="margin-bottom:12px">
+    <tr>
+      <td class="logo-cell" rowspan="2">
+        <div class="logo-box">
+          <div class="logo-icon">🐾</div>
+          <div class="logo-text">
+            <div class="logo-name">RAQUEL</div>
+            <div class="logo-sub">PAWNSHOP</div>
+          </div>
+        </div>
+      </td>
+      <td colspan="4" class="form-title-cell"><span class="form-title">PERFORMANCE EVALUATION FORM</span></td>
+    </tr>
+    <tr>
+      <td style="width:90px"><span class="meta-label">Revision Date</span></td>
+      <td><span class="meta-value">3 January 2022</span></td>
+      <td style="width:50px"><span class="meta-label">Code</span></td>
+      <td><span class="meta-value">HRD Form-013.01</span></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><span class="meta-label">Effective Date</span></td>
+      <td><span class="meta-value">14 January 2022</span></td>
+      <td><span class="meta-label">Control No.</span></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <!-- Section II: Behavior and Values -->
+  <div class="behavior-outer">
+    <div class="behavior-header">II. Key Result Areas based on Behavior and Values (20%)</div>
+    <table class="behavior-table">
+      <thead>
+        <tr>
+          <th class="kra-col">Key Result Area</th>
+          <th class="kpi-col">Key Performance Indicator</th>
+          <th class="rating-col">Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="kra-col">1. Positive Attitude</td>
+          <td>Displays positive attitude at work.</td>
+          <td class="rating-col"></td>
+        </tr>
+        <tr>
+          <td class="kra-col">2. Respect</td>
+          <td>Shows respect to all people in the organization.</td>
+          <td class="rating-col"></td>
+        </tr>
+        <tr>
+          <td class="kra-col">3. Accountability</td>
+          <td>Takes full responsibility of the job including special task or assignment.</td>
+          <td class="rating-col"></td>
+        </tr>
+        <tr>
+          <td class="kra-col">4. Commitment</td>
+          <td>Demonstrates strong commitment to the job.</td>
+          <td class="rating-col"></td>
+        </tr>
+        <tr>
+          <td class="kra-col">5. Teamwork</td>
+          <td>Works cooperatively with others in achieving the goals.</td>
+          <td class="rating-col"></td>
+        </tr>
+        <tr>
+          <td class="kra-col">6. Integrity</td>
+          <td>Exhibits honesty and strong moral uprightness.</td>
+          <td class="rating-col"></td>
+        </tr>
+        <tr>
+          <td class="kra-col">7. Continuous Improvement</td>
+          <td>Provides diligent effort to continuously focus on getting better.</td>
+          <td class="rating-col"></td>
+        </tr>
+        <tr>
+          <td class="kra-col">8. Excellent Client Experience</td>
+          <td>Delivers the service beyond the expectations of the internal and external clients.</td>
+          <td class="rating-col"></td>
+        </tr>
+        <tr class="avg-row">
+          <td colspan="2" style="text-align:right;padding-right:8px;">Average</td>
+          <td class="rating-col avg-val" style="text-align:center;">#DIV/0!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Developmental Plan -->
+  <div class="dev-outer">
+    <div class="dev-header">DEVELOPMENTAL PLAN</div>
+    <table class="dev-table">
+      <thead>
+        <tr>
+          <th>Areas of improvement that the employee should concentrate on (if any)</th>
+          <th style="width:200px">Support Needed</th>
+          <th style="width:130px">Time Frame</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="height:22px"></td><td></td><td></td></tr>
+        <tr><td style="height:22px"></td><td></td><td></td></tr>
+        <tr><td style="height:22px"></td><td></td><td></td></tr>
+        <tr><td style="height:22px"></td><td></td><td></td></tr>
+        <tr><td style="height:22px"></td><td></td><td></td></tr>
+        <tr><td style="height:22px"></td><td></td><td></td></tr>
+        <tr><td style="height:22px"></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Career Growth -->
+  <div class="career-outer">
+    <div class="career-header">CAREER GROWTH</div>
+    <div class="career-body">
+      Is the employee better suited for another job within the company?&nbsp;&nbsp;
+      <span class="check-item" style="display:inline-flex;align-items:center;gap:3px;"><span class="checkbox"></span> Yes</span>
+      &nbsp;&nbsp;
+      <span class="check-item" style="display:inline-flex;align-items:center;gap:3px;"><span class="checkbox"></span> No</span>
+      <br>
+      If yes, specify the job function / department: <span style="display:inline-block;width:280px;border-bottom:1px solid #000;">&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- Employee Comments -->
+  <div class="comment-box">
+    <div class="comment-label">Employee's Comments:</div>
+    <div class="comment-body" style="height:80px; position:relative;">
+      <div class="sig-line">Signature over Printed Name</div>
+    </div>
+  </div>
+
+  <!-- Evaluator's Comments -->
+  <div class="comment-box">
+    <div class="comment-label">Evaluator's Comments:</div>
+    <div class="comment-body" style="height:80px; position:relative;">
+      <div class="sig-line">Signature over Printed Name</div>
+    </div>
+  </div>
+
+  <!-- Executives' Signature -->
+  <div class="exec-box">
+    <div class="exec-label">Executives' Signature</div>
+    <div class="exec-sigs">
+      <div class="exec-sig">
+        <div class="exec-sig-line"></div>
+        Vice President
+      </div>
+      <div class="exec-sig">
+        <div class="exec-sig-line"></div>
+        President and CEO
+      </div>
+    </div>
+  </div>
+
+  <!-- For HR Use -->
+  <div style="border:1.5px solid #000; padding:6px 8px; font-size:10px;">
+    <div style="font-style:italic;font-weight:bold;text-align:center;margin-bottom:8px;">For Human Resources Use Only</div>
+    <div style="display:flex; gap:80px; padding:0 20px;">
+      <div>PMS Form received on: <span style="display:inline-block;width:130px;border-bottom:1px solid #000;">&nbsp;</span></div>
+      <div>Received by: <span style="display:inline-block;width:160px;border-bottom:1px solid #000;">&nbsp;</span></div>
+    </div>
+  </div>
+
+</div><!-- end page 2 -->
+
+</body>
+</html>
